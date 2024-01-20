@@ -6,6 +6,7 @@ from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 import re
+import os
 import mysql.connector
 
 app = Flask(__name__)
@@ -49,8 +50,28 @@ def _zip(*args, **kwargs): #to not overwrite builtin zip in globals
 @app.route("/", methods=["GET", "POST"])
 @login_required
 def index(icons=[['#','box']]):
-    return render_template('/index.html')
+    return render_template('index.html')
 
+@app.route("/upload", methods=["GET", "POST"])
+def upload():
+    if request.method == "POST":
+        if "file" not in request.files:
+            return render_template('upload.html', data="Please select a file.")
+        
+        file = request.files["file"]
+        
+        if file.filename == "":
+            return render_template('upload.html', data="Please select a file.")
+        
+        if file:
+            user_id = session.get("user_id")
+            upload_dir = os.path.join("uploads", str(user_id))
+            os.makedirs(upload_dir, exist_ok=True)
+            file_path = os.path.join(upload_dir, file.filename)
+            file.save(file_path)
+            return render_template('upload.html', data="File uploaded successfully.")
+        
+    return render_template('upload.html')
 
 ################################login##################################
 
