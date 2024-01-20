@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block main %}
+    <!--<form action="/login" method="post" class="text-center">
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto mt-4" id="username" name="username" placeholder="Username" type="text">
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Log In</button>
+    </form>-->
+    <video playsinline autoplay muted loop id="bgvid" style="z-index: -1;">
+        <source src="" type="video/webm">
+        <source src="/static/bg.mp4" type="video/mp4">
+    </video>
+
+    <div class="wrapper ms-auto " style="  display: grid; background-color: #333;">
+        
+        <div class="title text-white ">
+        Login
+        </div>
+        <form action="/login" method="post" class="text-center ps-5 pe-5">
+            <div class="field">
+                <input style="background-color: #333; color: white;" type="text" autofocus autocomplete="off"  id="username" name="username" required>
+                <label class="text-white" style="background-color: #333;">Username</label>
+            </div>
+            <div class="field">
+                <input style="background-color: #333; color: white;" id="password" name="password" type="password" required>
+                <label class="text-white "  style="background-color: #333;">Password</label>
+            </div>
+            <div class="info-error mt-2">
+                <p>{{data}}</p>
+            </div>
+            
+            <div class="field">
+                <input type="submit" value="Login">
+            </div>
+            <div class="">
+                <div class="pass-link">
+                    <a href="#" class="text-white">Forgot password?</a>
+                </div>
+                <div class="signup-link text-white">
+                    Not a member --> <a href="/register" class="text-white ">Sign up</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
